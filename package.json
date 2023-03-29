@@ -1,0 +1,21 @@
+{
+  "name": "@vivycloud/common-swagger",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/bfehub/vivy-common",
+  "scripts": {
+    "dev:tsc": "pnpm build:tsc --watch",
+    "build:tsc": "tsc -b tsconfig.build.json"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.0.0",
+    "@nestjs/core": "^9.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^9.0.0",
+    "@nestjs/schematics": "^9.0.0",
+    "typescript": "^4.9.5"
+  }
+}

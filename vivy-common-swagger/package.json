@@ -1,0 +1,8 @@
+{
+  "name": "@vivycloud/common-swagger",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/bfehub/vivy-common",
+  "main": "./lib/index.js"
+}

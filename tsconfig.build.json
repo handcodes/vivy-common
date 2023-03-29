@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.base.json",
+  "references": [
+    { "path": "./vivy-common-core/tsconfig.build.json" },
+    { "path": "./vivy-common-swagger/tsconfig.build.json" }
+  ],
+  "files": []
+}
