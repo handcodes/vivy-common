@@ -4,5 +4,9 @@
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
   "homepage": "https://github.com/bfehub/vivy-common",
-  "main": "./lib/index.js"
+  "main": "./lib/index.js",
+  "dependencies": {
+    "@nestjs/swagger": "^6.2.1",
+    "swagger-ui-express": "^4.6.2"
+  }
 }

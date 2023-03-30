@@ -4,5 +4,8 @@
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
   "homepage": "https://github.com/bfehub/vivy-common",
-  "main": "./lib/index.js"
+  "main": "./lib/index.js",
+  "dependencies": {
+    "internal-ip": "^6.2.0"
+  }
 }
