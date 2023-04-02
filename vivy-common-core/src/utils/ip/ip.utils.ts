@@ -1,9 +1,13 @@
 import { v4, v6 } from 'internal-ip'
+import { getClientIp, Request } from 'request-ip'
+import IP2Region from 'ip2region'
 
 /**
  * 获取 IP 方法
  */
 export class IpUtils {
+  static IP2RegionInstance = new IP2Region()
+
   /**
    * 异步返回内部 IPv4 地址
    * @example 10.0.0.79
@@ -31,4 +35,14 @@ export class IpUtils {
    * @return IP 地址
    */
   public static internalIpV6Sync = () => v6.sync()
+
+  /**
+   * 获取用户请求 IP 地址
+   */
+  public static requestIp = (req: Request) => getClientIp(req)
+
+  /**
+   * 获取 Ip 地理位置信息
+   */
+  public static ip2Region = (ip: string) => IpUtils.IP2RegionInstance.search(ip)
 }

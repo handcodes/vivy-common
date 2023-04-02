@@ -1,13 +1,14 @@
 {
-  "name": "@vivycloud/common-swagger",
+  "name": "@vivycloud/common-logger",
   "version": "0.0.1",
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
   "homepage": "https://github.com/bfehub/vivy-common",
   "main": "./lib/index.js",
   "dependencies": {
-    "@nestjs/swagger": "^6.2.1",
-    "swagger-ui-express": "^4.6.2"
+    "nest-winston": "^1.9.1",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "express": "^4.18.2"
