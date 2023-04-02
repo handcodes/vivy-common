@@ -1,1 +1,1 @@
-export const LOGGER_LOGMETA = 'logger:logmeta'
+export const LOGGER_LOG_METADATA = 'logger:log:metadata'

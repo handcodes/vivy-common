@@ -3,7 +3,7 @@ import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
 import { Observable, tap } from 'rxjs'
 import { Request } from 'express'
 import { IpUtils } from '@vivycloud/common-core'
-import { LOGGER_LOGMETA } from '../logger.constants'
+import { LOGGER_LOG_METADATA } from '../logger.constants'
 import { LoggerLogMetaData } from '../logger.interface'
 
 @Injectable()
@@ -11,7 +11,7 @@ export class LogInterceptor implements NestInterceptor {
   constructor(private reflector: Reflector) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const meta = this.reflector.get<LoggerLogMetaData>(LOGGER_LOGMETA, context.getHandler())
+    const meta = this.reflector.get<LoggerLogMetaData>(LOGGER_LOG_METADATA, context.getHandler())
     if (!meta) return next.handle()
 
     console.log('日志信息', meta)
