@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
-  "homepage": "https://github.com/bfehub/vivy-common",
+  "homepage": "https://github.com/nest-micro/vivy-common",
   "scripts": {
     "dev:tsc": "pnpm build:tsc --watch",
     "build:tsc": "tsc -b tsconfig.build.json"

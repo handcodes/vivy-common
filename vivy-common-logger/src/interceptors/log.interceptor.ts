@@ -2,7 +2,7 @@ import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Provider } 
 import { APP_INTERCEPTOR, Reflector } from '@nestjs/core'
 import { Observable, tap } from 'rxjs'
 import { Request } from 'express'
-import { IpUtils } from '@vivycloud/common-core'
+import { IpUtils } from '@vivy-cloud/common-core'
 import { LOGGER_LOG_METADATA } from '../logger.constants'
 import { LoggerLogMetaData } from '../logger.interface'
 

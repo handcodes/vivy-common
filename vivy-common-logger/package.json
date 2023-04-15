@@ -1,9 +1,9 @@
 {
-  "name": "@vivycloud/common-logger",
+  "name": "@vivy-cloud/common-logger",
   "version": "0.0.1",
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
-  "homepage": "https://github.com/bfehub/vivy-common",
+  "homepage": "https://github.com/nest-micro/vivy-common",
   "main": "./lib/index.js",
   "dependencies": {
     "nest-winston": "^1.9.1",

@@ -1,0 +1,8 @@
+{
+  "name": "@vivy-cloud/common-api",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "haiweilian <haiweilian@foxmail.com>",
+  "homepage": "https://github.com/nest-micro/vivy-common",
+  "main": "./lib/index.js"
+}

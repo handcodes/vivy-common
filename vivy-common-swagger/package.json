@@ -1,9 +1,9 @@
 {
-  "name": "@vivycloud/common-swagger",
+  "name": "@vivy-cloud/common-swagger",
   "version": "0.0.1",
   "license": "MIT",
   "author": "haiweilian <haiweilian@foxmail.com>",
-  "homepage": "https://github.com/bfehub/vivy-common",
+  "homepage": "https://github.com/nest-micro/vivy-common",
   "main": "./lib/index.js",
   "dependencies": {
     "@nestjs/swagger": "^6.2.1",
