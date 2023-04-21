@@ -6,43 +6,43 @@ import IP2Region from 'ip2region'
  * 获取 IP 方法
  */
 export class IpUtils {
-  static IP2RegionInstance = new IP2Region()
+  private static IP2RegionInstance = new IP2Region()
 
   /**
    * 异步返回内部 IPv4 地址
    * @example 10.0.0.79
    * @return IP 地址
    */
-  public static internalIpV4 = () => v4()
+  static internalIpV4 = () => v4()
 
   /**
    * 异步返回内部 IPv6 地址
    * @example fe80::1
    * @return IP 地址
    */
-  public static internalIpV6 = () => v6()
+  static internalIpV6 = () => v6()
 
   /**
    * 同步返回内部 IPv4 地址
    * @example 10.0.0.79
    * @return IP 地址
    */
-  public static internalIpV4Sync = () => v4.sync()
+  static internalIpV4Sync = () => v4.sync()
 
   /**
    * 同步返回内部 IPv6 地址
    * @example fe80::1
    * @return IP 地址
    */
-  public static internalIpV6Sync = () => v6.sync()
+  static internalIpV6Sync = () => v6.sync()
 
   /**
    * 获取用户请求 IP 地址
    */
-  public static requestIp = (req: Request) => getClientIp(req)
+  static requestIp = (req: Request) => getClientIp(req)
 
   /**
    * 获取 Ip 地理位置信息
    */
-  public static ip2Region = (ip: string) => IpUtils.IP2RegionInstance.search(ip)
+  static ip2Region = (ip: string) => this.IP2RegionInstance.search(ip)
 }

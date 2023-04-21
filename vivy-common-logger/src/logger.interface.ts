@@ -27,12 +27,4 @@ export interface LoggerLogMetaData {
    * 操作人类型
    */
   operatorType: OperatorType
-  /**
-   * 是否保存请求数据
-   */
-  isSaveRequestData: boolean
-  /**
-   * 是否保存响应数据
-   */
-  isSaveResponseData: boolean
 }

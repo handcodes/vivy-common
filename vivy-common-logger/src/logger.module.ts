@@ -1,5 +1,6 @@
 import { DynamicModule, Global, Module } from '@nestjs/common'
-import { LogInterceptorProvide } from './interceptors/log.interceptor'
+import { APP_INTERCEPTOR } from '@nestjs/core'
+import { LogInterceptor } from './interceptors/log.interceptor'
 import { NestLogger } from './nest.logger'
 import { TypeormLogger } from './typeorm.logger'
 
@@ -9,7 +10,12 @@ export class LoggerModule {
   static forRoot(): DynamicModule {
     return {
       module: LoggerModule,
-      providers: [LogInterceptorProvide],
+      providers: [
+        {
+          provide: APP_INTERCEPTOR,
+          useClass: LogInterceptor,
+        },
+      ],
     }
   }
 

@@ -1,5 +1,5 @@
 export * from './logger.module'
 export * from './decorators/log.decorator'
-export * from './enums/business-status.enum'
 export * from './enums/business-type.enum'
+export * from './enums/business-status.enum'
 export * from './enums/operator-type.enum'
