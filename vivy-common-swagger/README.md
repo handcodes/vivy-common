@@ -1,1 +1,1 @@
-# @vivycloud/common-swagger
+# @vivy-cloud/common-swagger

@@ -1,1 +1,1 @@
-# @vivycloud/common-core
+# @vivy-cloud/remote-api

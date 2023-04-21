@@ -1,1 +1,1 @@
-# @vivycloud/common-logger
+# @vivy-cloud/common-logger
