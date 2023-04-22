@@ -1,4 +1,5 @@
 export * from './logger.module'
+export * from './logger.service'
 export * from './decorators/log.decorator'
 export * from './enums/business-type.enum'
 export * from './enums/business-status.enum'

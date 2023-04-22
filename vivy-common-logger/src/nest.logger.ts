@@ -1,4 +1,5 @@
 import * as path from 'path'
+import { assign } from 'lodash'
 import { WinstonModule } from 'nest-winston'
 import { WinstonTransportBuilder } from './logger.transport'
 import { LoggerOptions } from './logger.interface'
@@ -12,7 +13,7 @@ const defaultOptions: LoggerOptions = {
  * 自定义 NestJs 日志
  */
 export const NestLogger = (options: LoggerOptions = defaultOptions) => {
-  const TransportBuilder = new WinstonTransportBuilder(options)
+  const TransportBuilder = new WinstonTransportBuilder(assign(defaultOptions, options))
 
   return WinstonModule.createLogger({
     transports: [

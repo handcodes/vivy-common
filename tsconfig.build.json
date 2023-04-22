@@ -3,8 +3,7 @@
   "references": [
     { "path": "./vivy-common-core/tsconfig.build.json" },
     { "path": "./vivy-common-logger/tsconfig.build.json" },
-    { "path": "./vivy-common-swagger/tsconfig.build.json" },
-    { "path": "./vivy-remote-api/tsconfig.build.json" }
+    { "path": "./vivy-common-swagger/tsconfig.build.json" }
   ],
   "files": []
 }

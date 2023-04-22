@@ -1,3 +1,4 @@
+import { FactoryProvider } from '@nestjs/common'
 import { BusinessType } from './enums/business-type.enum'
 import { OperatorType } from './enums/operator-type.enum'
 
@@ -12,6 +13,12 @@ export interface LoggerOptions {
    * @default path.resolve(process.cwd(), 'logs')
    */
   logPath?: string
+}
+
+export interface LoggerAsyncOptions {
+  name?: string
+  useFactory: (...args: any[]) => Promise<LoggerOptions> | LoggerOptions
+  inject?: FactoryProvider['inject']
 }
 
 export interface LoggerLogMetaData {
