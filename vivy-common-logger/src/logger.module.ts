@@ -4,7 +4,7 @@ import { LOGGER_OPTIONS } from './logger.constants'
 import { LoggerOptions, LoggerAsyncOptions } from './logger.interface'
 import { LoggerService } from './logger.service'
 import { LogInterceptor } from './interceptors/log.interceptor'
-import { RemoteLogService } from './remote/remote-log.service'
+import { RemoteLogService } from './services/remote-log.service'
 import { NestLogger } from './nest.logger'
 import { TypeormLogger } from './typeorm.logger'
 

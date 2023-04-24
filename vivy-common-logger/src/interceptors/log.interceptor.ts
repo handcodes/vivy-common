@@ -7,8 +7,8 @@ import { IpUtils } from '@vivy-cloud/common-core/lib/utils'
 import { LOGGER_LOG_METADATA } from '../logger.constants'
 import { LoggerLogMetaData } from '../logger.interface'
 import { BusinessStatus } from '../enums/business-status.enum'
-import { RemoteLogService } from '../remote/remote-log.service'
-import { OperLogDto } from '../remote/dto/oper-log.dto'
+import { RemoteLogService } from '../services/remote-log.service'
+import { OperLogDto } from '../services/dto/oper-log.dto'
 
 @Injectable()
 export class LogInterceptor implements NestInterceptor {
