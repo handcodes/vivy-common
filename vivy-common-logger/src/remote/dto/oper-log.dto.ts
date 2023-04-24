@@ -1,3 +1,7 @@
+import { BusinessType } from '../../enums/business-type.enum'
+import { BusinessStatus } from '../../enums/business-status.enum'
+import { OperatorType } from '../../enums/operator-type.enum'
+
 export class OperLogDto {
   /**
    * 模块标题
@@ -7,12 +11,12 @@ export class OperLogDto {
   /**
    * 业务类型
    */
-  businessType: number
+  businessType: BusinessType
 
   /**
    * 操作类别
    */
-  operType: number
+  operType: OperatorType
 
   /**
    * 操作人员
@@ -37,7 +41,7 @@ export class OperLogDto {
   /**
    * 操作状态
    */
-  operStatus: number
+  operStatus: BusinessStatus
 
   /**
    * 请求URL

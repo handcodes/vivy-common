@@ -11,8 +11,8 @@ import { HttpModule } from '@nest-micro/http'
 import { LoggerModule } from '@vivy-cloud/common-logger'
 
 import { CoreOptions } from './interfaces/core-options.interface'
-import { NestGlobalPipes } from './nest-pipes'
-import { HttpGlobalInterceptors } from './http-interceptors'
+import { NestGlobalPipes } from './pipes/global'
+import { HttpGlobalInterceptors } from './interceptors-http/global'
 
 @Global()
 @Module({})
@@ -56,16 +56,6 @@ export class CoreModule {
         }),
       ],
       providers: [...NestGlobalPipes, ...HttpGlobalInterceptors],
-      exports: [
-        ConfigModule,
-        ConfigNacosModule,
-        DiscoveryModule,
-        DiscoveryNacosModule,
-        LoadbalanceModule,
-        BrakesModule,
-        HttpModule,
-        LoggerModule,
-      ],
     }
   }
 }
