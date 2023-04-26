@@ -1,13 +1,9 @@
-import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
-export abstract class BaseEntity {
-  @PrimaryGeneratedColumn({
-    name: 'id',
-    type: 'bigint',
-    comment: '主键',
-  })
-  id: number
-
+/**
+ * 基础时间实体
+ */
+export abstract class BaseTimeEntity {
   @CreateDateColumn({
     name: 'created_time',
     type: 'datetime',

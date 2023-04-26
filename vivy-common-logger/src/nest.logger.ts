@@ -1,6 +1,7 @@
 import * as path from 'path'
 import { assign } from 'lodash'
-import { WinstonModule } from 'nest-winston'
+import { WinstonModule, WinstonLogger } from 'nest-winston'
+import { Injectable } from '@nestjs/common'
 import { WinstonTransportBuilder } from './logger.transport'
 import { LoggerOptions } from './logger.interface'
 
@@ -8,6 +9,13 @@ const defaultOptions: LoggerOptions = {
   appName: 'vivy',
   logPath: path.resolve(process.cwd(), 'logs'),
 }
+
+/**
+ * 基于类注入
+ * https://github.com/gremo/nest-winston/blob/HEAD/src/winston.classes.ts
+ */
+@Injectable()
+export class LoggerService extends WinstonLogger {}
 
 /**
  * 自定义 NestJs 日志

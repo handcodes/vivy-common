@@ -2,11 +2,10 @@ import { DynamicModule, Global, Module, Provider } from '@nestjs/common'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { LOGGER_OPTIONS } from './logger.constants'
 import { LoggerOptions, LoggerAsyncOptions } from './logger.interface'
-import { LoggerService } from './logger.service'
 import { LogInterceptor } from './interceptors/log.interceptor'
 import { RemoteLogService } from './services/remote-log.service'
-import { NestLogger } from './nest.logger'
-import { TypeormLogger } from './typeorm.logger'
+import { NestLogger, LoggerService } from './nest.logger'
+import { TypeORMLogger } from './typeorm.logger'
 
 @Global()
 @Module({})
@@ -53,5 +52,5 @@ export class LoggerModule {
 
   static NestLogger = NestLogger
 
-  static TypeormLogger = TypeormLogger
+  static TypeORMLogger = TypeORMLogger
 }
