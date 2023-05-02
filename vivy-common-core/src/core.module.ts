@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { DynamicModule, Global, Module } from '@nestjs/common'
+import { DynamicModule, Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { CONFIG, CONFIG_NACOS } from '@nest-micro/common'
 import { ConfigModule, Config } from '@nest-micro/config'
 import { ConfigNacosModule } from '@nest-micro/config-nacos'
@@ -12,11 +12,13 @@ import { LoggerModule } from '@vivy-cloud/common-logger'
 
 import { CoreOptions } from './interfaces/core-options.interface'
 import { NestGlobalPipes } from './pipes/global'
+import { NestGlobalFilters } from './exceptions-filters/global'
+import { NestGlobalMiddlewares } from './middlewares/global'
 import { HttpGlobalInterceptors } from './interceptors-http/global'
 
 @Global()
 @Module({})
-export class CoreModule {
+export class CoreModule implements NestModule {
   static forRoot(options: CoreOptions): DynamicModule {
     return {
       module: CoreModule,
@@ -55,7 +57,11 @@ export class CoreModule {
           inject: [CONFIG, CONFIG_NACOS],
         }),
       ],
-      providers: [...NestGlobalPipes, ...HttpGlobalInterceptors],
+      providers: [...NestGlobalPipes, ...NestGlobalFilters, ...HttpGlobalInterceptors],
     }
+  }
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(...NestGlobalMiddlewares).forRoutes('/')
   }
 }

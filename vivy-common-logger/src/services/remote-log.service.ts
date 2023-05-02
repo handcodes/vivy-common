@@ -3,13 +3,14 @@
 import { Injectable } from '@nestjs/common'
 import { Body, Post } from '@nest-micro/http'
 import { Loadbalanced } from '@nest-micro/loadbalance'
+import { ServiceNameEnums } from '@vivy-cloud/common-core/lib/enums'
 import { OperLogDto } from './dto/oper-log.dto'
 
 /**
  * 远程日志服务
  */
 @Injectable()
-@Loadbalanced('vivy-system')
+@Loadbalanced(ServiceNameEnums.SYSTEM_SERVICE)
 export class RemoteLogService {
   /**
    * 添加操作日志
