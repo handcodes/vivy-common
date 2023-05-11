@@ -1,8 +1,8 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { LoggerService } from '@vivy-cloud/common-logger'
-import { NotRoleException } from '../exceptions/auth/not-role.exception'
-import { AjaxResult } from '../utils/class/res.class'
+import { NotRoleException } from '../../exceptions/auth/not-role.exception'
+import { AjaxResult } from '../../utils/class/res.class'
 
 /**
  * 角色认证异常过滤器

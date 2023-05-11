@@ -1,8 +1,8 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { LoggerService } from '@vivy-cloud/common-logger'
-import { NotPermissionException } from '../exceptions/auth/not-permission.exception'
-import { AjaxResult } from '../utils/class/res.class'
+import { NotPermissionException } from '../../exceptions/auth/not-permission.exception'
+import { AjaxResult } from '../../utils/class/res.class'
 
 /**
  * 权限认证异常过滤器

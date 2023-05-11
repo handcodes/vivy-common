@@ -11,7 +11,7 @@ export abstract class BaseBusinessEntity {
     default: '0',
     comment: '删除标志（0存在 1删除）',
   })
-  delFlag: number
+  delFlag: string
 
   @Column({
     name: 'create_by',

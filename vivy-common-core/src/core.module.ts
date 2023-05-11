@@ -9,12 +9,14 @@ import { LoadbalanceModule } from '@nest-micro/loadbalance'
 import { BrakesModule } from '@nest-micro/brakes'
 import { HttpModule } from '@nest-micro/http'
 import { LoggerModule } from '@vivy-cloud/common-logger'
+import { ClsModule } from 'nestjs-cls'
 
 import { CoreOptions } from './interfaces/core-options.interface'
 import { NestGlobalPipes } from './pipes/global'
 import { NestGlobalFilters } from './exceptions-filters/global'
 import { NestGlobalMiddlewares } from './middlewares/global'
-import { HttpGlobalInterceptors } from './interceptors-http/global'
+import { NestGlobalServices } from './services/global'
+import { HttpGlobalInterceptors } from './interceptors/global'
 
 @Global()
 @Module({})
@@ -23,6 +25,16 @@ export class CoreModule implements NestModule {
     return {
       module: CoreModule,
       imports: [
+        ClsModule.forRoot({
+          global: true,
+          middleware: {
+            mount: true,
+            saveReq: true,
+            saveRes: true,
+            generateId: true,
+          },
+        }),
+
         ConfigModule.forRoot({
           dir: path.resolve(options.dirname, './config'),
         }),
@@ -57,7 +69,8 @@ export class CoreModule implements NestModule {
           inject: [CONFIG, CONFIG_NACOS],
         }),
       ],
-      providers: [...NestGlobalPipes, ...NestGlobalFilters, ...HttpGlobalInterceptors],
+      providers: [...NestGlobalPipes, ...NestGlobalFilters, ...NestGlobalServices, ...HttpGlobalInterceptors],
+      exports: [...NestGlobalServices],
     }
   }
 

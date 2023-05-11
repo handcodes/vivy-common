@@ -4,6 +4,7 @@ import { Observable, tap, catchError, throwError } from 'rxjs'
 import { isObject } from 'lodash'
 import { Request } from 'express'
 import { IpUtils } from '@vivy-cloud/common-core/lib/utils'
+import { SecurityConstants } from '@vivy-cloud/common-core/lib/constants'
 import { LOGGER_LOG_METADATA } from '../logger.constants'
 import { LoggerLogMetaData } from '../logger.interface'
 import { BusinessStatus } from '../enums/business-status.enum'
@@ -30,7 +31,7 @@ export class LogInterceptor implements NestInterceptor {
     const region = IpUtils.ip2Region(IpUtils.requestIp(request))
     operLog.operIp = IpUtils.requestIp(request)
     operLog.operLocation = `${region.country} ${region.province} ${region.city} ${region.isp}`
-    operLog.operName = '...todo...'
+    operLog.operName = request[SecurityConstants.USER_NAME]
 
     operLog.requestUrl = request.url
     operLog.requestMethod = request.method

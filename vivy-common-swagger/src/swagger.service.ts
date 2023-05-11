@@ -5,7 +5,7 @@ import { SwaggerOptions } from './swagger.interface'
 export class SwaggerService {
   builder: DocumentBuilder
 
-  constructor(private readonly app: INestApplication, private readonly options: SwaggerOptions) {
+  constructor(private app: INestApplication, private options: SwaggerOptions = {}) {
     this.builder = new DocumentBuilder()
   }
 
@@ -14,6 +14,7 @@ export class SwaggerService {
     if (enabled === false) return
 
     this.builderBase()
+    this.builderAuth()
 
     const document = SwaggerModule.createDocument(this.app, this.builder.build())
     SwaggerModule.setup('swagger', this.app, document)
@@ -50,5 +51,11 @@ export class SwaggerService {
     if (options.externalDoc) {
       builder.setExternalDoc(options.externalDoc.description, options.externalDoc.url)
     }
+  }
+
+  private builderAuth() {
+    const builder = this.builder
+
+    builder.addBearerAuth()
   }
 }

@@ -14,6 +14,8 @@ import { OperLogDto } from './dto/oper-log.dto'
 export class RemoteLogService {
   /**
    * 添加操作日志
+   * @author vivy
+   * @date 2023-04-26 17:14:14
    */
   @Post('remote/log/saveOperLog')
   async saveOperLog(@Body() operLog: OperLogDto) {}
