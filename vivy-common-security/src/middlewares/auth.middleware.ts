@@ -4,11 +4,11 @@ import { SecurityConstants } from '@vivy-cloud/common-core'
 import { TokenService } from '../services/token.service'
 
 /**
- * 自定义请求头中间件
+ * 权限请求头中间件
  * 注意：此中间件会同时验证当前用户有效期自动刷新有效期
  */
 @Injectable()
-export class HeaderMiddleware implements NestMiddleware {
+export class AuthMiddleware implements NestMiddleware {
   constructor(private tokenService: TokenService) {}
 
   async use(request: Request, response: Response, next: NextFunction) {

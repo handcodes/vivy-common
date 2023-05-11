@@ -10,7 +10,7 @@ import { ISysLoginUser } from '../interfaces/sys-login-user.interface'
  *
  * 注意：必须提前设置请求头，否则这里无法获取。
  *  - 在 vivy-gateway(AuthFilter)中通过设置请求头的方法传入。
- *  - 在 vivy-common-security(HeaderMiddleware)中通过设置请求头的方法传入。
+ *  - 在 vivy-common-security(AuthMiddleware)中通过设置请求头的方法传入。
  */
 @Injectable()
 export class SecurityContextService {

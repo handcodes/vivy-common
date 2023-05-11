@@ -26,4 +26,14 @@ export class SecurityConstants {
    * 授权信息字段
    */
   static readonly AUTHENTICATION = 'authorization'
+
+  /**
+   * 请求来源
+   */
+  static readonly FROM_SOURCE = 'from_source'
+
+  /**
+   * 内部请求
+   */
+  static readonly SOURCE_INNER = 'source_inner'
 }

@@ -6,7 +6,8 @@ import { SecurityOptions } from './interfaces/security-options.interface'
 import { AuthService } from './services/auth.service'
 import { TokenService } from './services/token.service'
 import { AuthorizeGuard } from './guards/authorize.guard'
-import { HeaderMiddleware } from './middlewares/header.middleware'
+import { InnerAuthGuard } from './guards/inner-auth.guard'
+import { AuthMiddleware } from './middlewares/auth.middleware'
 
 @Global()
 @Module({})
@@ -31,13 +32,17 @@ export class SecurityModule implements NestModule {
           provide: APP_GUARD,
           useClass: AuthorizeGuard,
         },
+        {
+          provide: APP_GUARD,
+          useClass: InnerAuthGuard,
+        },
       ],
       exports: [AuthService, TokenService],
     }
   }
 
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(HeaderMiddleware).exclude('/login', '/logout', '/refresh').forRoutes('/')
+    consumer.apply(AuthMiddleware).exclude('/login', '/logout', '/refresh').forRoutes('/')
   }
 }
 
