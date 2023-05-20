@@ -1,10 +1,10 @@
 import * as path from 'path'
 import { DynamicModule, Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
-import { CONFIG, CONFIG_NACOS } from '@nest-micro/common'
+import { CONFIG, NACOS_CONFIG } from '@nest-micro/common'
 import { ConfigModule, Config } from '@nest-micro/config'
-import { ConfigNacosModule } from '@nest-micro/config-nacos'
+import { NacosConfigModule } from '@nest-micro/nacos-config'
 import { DiscoveryModule } from '@nest-micro/discovery'
-import { DiscoveryNacosModule } from '@nest-micro/discovery-nacos'
+import { NacosDiscoveryModule } from '@nest-micro/nacos-discovery'
 import { LoadbalanceModule } from '@nest-micro/loadbalance'
 import { BrakesModule } from '@nest-micro/brakes'
 import { HttpModule } from '@nest-micro/http'
@@ -38,25 +38,25 @@ export class CoreModule implements NestModule {
         ConfigModule.forRoot({
           dir: path.resolve(options.dirname, './config'),
         }),
-        ConfigNacosModule.forRootAsync({
+        NacosConfigModule.forRootAsync({
           dependencies: [CONFIG],
         }),
 
         DiscoveryModule.forRootAsync({
-          dependencies: [CONFIG, CONFIG_NACOS],
+          dependencies: [CONFIG, NACOS_CONFIG],
         }),
-        DiscoveryNacosModule.forRootAsync({
-          dependencies: [CONFIG, CONFIG_NACOS],
+        NacosDiscoveryModule.forRootAsync({
+          dependencies: [CONFIG, NACOS_CONFIG],
         }),
         LoadbalanceModule.forRootAsync({
-          dependencies: [CONFIG, CONFIG_NACOS],
+          dependencies: [CONFIG, NACOS_CONFIG],
         }),
 
         BrakesModule.forRootAsync({
-          dependencies: [CONFIG, CONFIG_NACOS],
+          dependencies: [CONFIG, NACOS_CONFIG],
         }),
         HttpModule.forRootAsync({
-          dependencies: [CONFIG, CONFIG_NACOS],
+          dependencies: [CONFIG, NACOS_CONFIG],
         }),
 
         LoggerModule.forRootAsync({
@@ -66,7 +66,7 @@ export class CoreModule implements NestModule {
               logPath: path.resolve(options.dirname, '../logs'),
             }
           },
-          inject: [CONFIG, CONFIG_NACOS],
+          inject: [CONFIG, NACOS_CONFIG],
         }),
       ],
       providers: [...NestGlobalPipes, ...NestGlobalFilters, ...NestGlobalServices, ...HttpGlobalInterceptors],
