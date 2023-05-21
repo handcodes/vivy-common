@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   /**
-   * 获取当前账号的角色列表
+   * 获取当前用户的角色列表
    */
   getRoleList(): string[] {
     try {
@@ -162,7 +162,7 @@ export class AuthService {
   }
 
   /**
-   * 获取当前账号的权限列表
+   * 获取当前用户的权限列表
    */
   getPermissionList(): string[] {
     try {

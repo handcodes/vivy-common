@@ -5,7 +5,7 @@ import { Express } from 'express'
 import { INNER_AUTH_METADATA } from '../security.constants'
 
 /**
- * 内部服务调用验证处理
+ * 内部认证守卫
  */
 @Injectable()
 export class InnerAuthGuard implements CanActivate {
@@ -27,7 +27,7 @@ export class InnerAuthGuard implements CanActivate {
     const userId = request.get(SecurityConstants.USER_ID)
     const userName = request.get(SecurityConstants.USER_NAME)
     if (innerAuth.isUser && (!userId || !userName)) {
-      throw new NotInnerException('没有设置用户信息，不允许访问 ')
+      throw new NotInnerException('没有设置用户信息，不允许访问')
     }
 
     return true

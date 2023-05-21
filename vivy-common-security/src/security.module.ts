@@ -5,8 +5,8 @@ import { TokenConstants } from '@vivy-cloud/common-core'
 import { SecurityOptions } from './interfaces/security-options.interface'
 import { AuthService } from './services/auth.service'
 import { TokenService } from './services/token.service'
-import { AuthorizeGuard } from './guards/authorize.guard'
 import { InnerAuthGuard } from './guards/inner-auth.guard'
+import { RequireAuthGuard } from './guards/require-auth.guard'
 import { AuthMiddleware } from './middlewares/auth.middleware'
 
 @Global()
@@ -30,11 +30,11 @@ export class SecurityModule implements NestModule {
         TokenService,
         {
           provide: APP_GUARD,
-          useClass: AuthorizeGuard,
+          useClass: InnerAuthGuard,
         },
         {
           provide: APP_GUARD,
-          useClass: InnerAuthGuard,
+          useClass: RequireAuthGuard,
         },
       ],
       exports: [AuthService, TokenService],

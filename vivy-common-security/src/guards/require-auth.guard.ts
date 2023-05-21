@@ -8,7 +8,7 @@ import { REQUIRE_LOGIN_METADATA, REQUIRE_ROLES_METADATA, REQUIRE_PERMISSIONS_MET
  * 权限校验守卫
  */
 @Injectable()
-export class AuthorizeGuard implements CanActivate {
+export class RequireAuthGuard implements CanActivate {
   constructor(private reflector: Reflector, private authService: AuthService) {}
 
   canActivate(context: ExecutionContext): boolean {
