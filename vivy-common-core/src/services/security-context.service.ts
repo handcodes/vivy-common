@@ -3,7 +3,7 @@ import { Request } from 'express'
 import { RequestContextService } from './request-context.service'
 import { TokenConstants } from '../constants/token.constants'
 import { SecurityConstants } from '../constants/security.constants'
-import { ISysLoginUser } from '../interfaces/sys-login-user.interface'
+import { SysLoginUser } from '../models/sys-login-user.model'
 
 /**
  * 权限上下文
@@ -47,7 +47,7 @@ export class SecurityContextService {
   /**
    * 获取登录用户信息
    */
-  getLoginUser(req?: Request): ISysLoginUser {
+  getLoginUser(req?: Request): SysLoginUser {
     return this.getRequest(req)[SecurityConstants.LOGIN_USER]
   }
 

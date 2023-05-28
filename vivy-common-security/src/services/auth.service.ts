@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import {
-  ISysLoginUser,
+  SysLoginUser,
   NotLoginException,
   NotPermissionException,
   NotRoleException,
@@ -48,7 +48,7 @@ export class AuthService {
   /**
    * 获取当前用户缓存信息, 如果未登录，则抛出异常
    */
-  getLoginUser(): ISysLoginUser {
+  getLoginUser(): SysLoginUser {
     const token = this.securityContextService.getToken()
     if (!token) {
       throw new NotLoginException('令牌不能为空')
@@ -72,7 +72,7 @@ export class AuthService {
   /**
    * 验证当前用户有效期, 如果相差不足120分钟，自动刷新缓存
    */
-  async verifyLoginUserExpire(loginUser: ISysLoginUser) {
+  async verifyLoginUserExpire(loginUser: SysLoginUser) {
     return this.tokenService.verifyTokenExpire(loginUser)
   }
 

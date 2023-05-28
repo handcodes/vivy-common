@@ -1,7 +1,7 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common'
 import { Response } from 'express'
 import { LoggerService } from '@vivy-cloud/common-logger'
-import { AjaxResult } from '../utils/class/res.class'
+import { AjaxResult } from '../models/ajax-result.model'
 
 /**
  * 未知异常过滤器

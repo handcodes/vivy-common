@@ -1,9 +1,9 @@
-import { ISysUser } from './sys-user.interface'
+import { SysUser } from './sys-user.model'
 
 /**
  * 登录信息
  */
-export class ISysLoginUser {
+export class SysLoginUser {
   /**
    * 用户会话Key
    */
@@ -47,5 +47,5 @@ export class ISysLoginUser {
   /**
    * 用户信息
    */
-  sysUser: ISysUser
+  sysUser: SysUser
 }

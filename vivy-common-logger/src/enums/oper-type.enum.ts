@@ -1,7 +1,7 @@
 /**
  * 业务操作类型
  */
-export enum BusinessType {
+export enum OperType {
   /**
    * 其它
    */

@@ -1,7 +1,7 @@
 /**
  * 业务操作状态
  */
-export enum BusinessStatus {
+export enum OperStatus {
   /**
    * 成功
    */

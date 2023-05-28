@@ -8,8 +8,8 @@ import {
   CacheConstants,
   SecurityConstants,
   SecurityContextService,
-  type IJwtToken,
-  type ISysLoginUser,
+  type JwtToken,
+  type SysLoginUser,
 } from '@vivy-cloud/common-core'
 
 /**
@@ -47,7 +47,7 @@ export class TokenService {
   /**
    * 解析令牌
    */
-  parseToken(token: string): IJwtToken | null {
+  parseToken(token: string): JwtToken | null {
     if (!token) return null
     try {
       return this.jwtService.verify(token)
@@ -59,7 +59,7 @@ export class TokenService {
   /**
    * 创建令牌
    */
-  async createToken(loginUser: ISysLoginUser) {
+  async createToken(loginUser: SysLoginUser) {
     const userKey = randomUUID()
     const userId = loginUser.sysUser.userId
     const userName = loginUser.sysUser.userName
@@ -70,7 +70,7 @@ export class TokenService {
     await this.setLoginUser(loginUser)
 
     // Jwt存储信息
-    const payload = {
+    const payload: JwtToken = {
       [SecurityConstants.USER_KEY]: userKey,
       [SecurityConstants.USER_ID]: userId,
       [SecurityConstants.USER_NAME]: userName,
@@ -88,35 +88,35 @@ export class TokenService {
   /**
    * 获取用户会话key
    */
-  getUserKey(payload: IJwtToken): string {
+  getUserKey(payload: JwtToken): string {
     return payload[SecurityConstants.USER_KEY]
   }
 
   /**
    * 获取用户ID
    */
-  getUserId(payload: IJwtToken): number {
+  getUserId(payload: JwtToken): number {
     return payload[SecurityConstants.USER_ID]
   }
 
   /**
    * 获取用户名称
    */
-  getUserName(payload: IJwtToken): string {
+  getUserName(payload: JwtToken): string {
     return payload[SecurityConstants.USER_NAME]
   }
 
   /**
    * 设置用户身份信息
    */
-  async setLoginUser(loginUser: ISysLoginUser) {
+  async setLoginUser(loginUser: SysLoginUser) {
     return this.refreshToken(loginUser)
   }
 
   /**
    * 获取用户身份信息
    */
-  async getLoginUser(token: string): Promise<ISysLoginUser | null> {
+  async getLoginUser(token: string): Promise<SysLoginUser | null> {
     if (!token) return null
     try {
       const key = this.getTokenKey(this.getUserKey(this.parseToken(token)))
@@ -154,7 +154,7 @@ export class TokenService {
   /**
    * 验证令牌有效期，相差不足120分钟，自动刷新缓存
    */
-  async verifyTokenExpire(loginUser: ISysLoginUser) {
+  async verifyTokenExpire(loginUser: SysLoginUser) {
     const expireTime = loginUser.expireTime
     const currentTime = Date.now()
     if (expireTime - currentTime <= this.MILLIS_MINUTE_REFRESH) {
@@ -165,7 +165,7 @@ export class TokenService {
   /**
    * 刷新令牌有效期
    */
-  async refreshToken(loginUser: ISysLoginUser) {
+  async refreshToken(loginUser: SysLoginUser) {
     loginUser.loginTime = Date.now()
     loginUser.expireTime = loginUser.loginTime + CacheConstants.EXPIRATION * this.MILLIS_MINUTE
 

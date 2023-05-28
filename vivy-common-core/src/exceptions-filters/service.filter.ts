@@ -2,7 +2,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/commo
 import { Request, Response } from 'express'
 import { LoggerService } from '@vivy-cloud/common-logger'
 import { ServiceException } from '../exceptions/service.exception'
-import { AjaxResult } from '../utils/class/res.class'
+import { AjaxResult } from '../models/ajax-result.model'
 
 /**
  * 业务逻辑异常过滤器

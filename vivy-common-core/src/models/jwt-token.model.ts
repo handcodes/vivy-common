@@ -1,7 +1,7 @@
 /**
  * Jwt Token 信息
  */
-export class IJwtToken {
+export class JwtToken {
   /**
    * 用户会话
    */

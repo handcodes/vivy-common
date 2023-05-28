@@ -17,7 +17,7 @@ export abstract class BaseBusinessEntity {
     name: 'create_by',
     type: 'varchar',
     length: 50,
-    default: '',
+    nullable: true,
     comment: '创建者',
   })
   createBy: string
@@ -33,7 +33,7 @@ export abstract class BaseBusinessEntity {
     name: 'update_by',
     type: 'varchar',
     length: 50,
-    default: '',
+    nullable: true,
     comment: '更新者',
   })
   updateBy: string
@@ -49,7 +49,7 @@ export abstract class BaseBusinessEntity {
     name: 'remark',
     type: 'varchar',
     length: 500,
-    default: '',
+    nullable: true,
     comment: '备注',
   })
   remark: string

@@ -1,6 +1,5 @@
 import { FactoryProvider } from '@nestjs/common'
-import { BusinessType } from './enums/business-type.enum'
-import { OperatorType } from './enums/operator-type.enum'
+import { OperType } from './enums/oper-type.enum'
 
 export interface LoggerOptions {
   /**
@@ -27,11 +26,7 @@ export interface LoggerLogMetaData {
    */
   title: string
   /**
-   * 业务类型
+   * 操作类型
    */
-  businessType: BusinessType
-  /**
-   * 操作人类型
-   */
-  operatorType: OperatorType
+  operType: OperType
 }

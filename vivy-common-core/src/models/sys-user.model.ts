@@ -3,7 +3,7 @@ import { BaseBusinessEntity } from '../entities/base-business.entity'
 /**
  * 用户信息
  */
-export class ISysUser extends BaseBusinessEntity {
+export class SysUser extends BaseBusinessEntity {
   /**
    * 用户ID
    */

@@ -3,6 +3,6 @@ declare namespace Express {
     user_key?: string
     user_id?: number
     user_name?: string
-    login_user?: import('../interfaces/sys-login-user.interface').ISysLoginUser
+    login_user?: import('../models/sys-login-user.model').SysLoginUser
   }
 }

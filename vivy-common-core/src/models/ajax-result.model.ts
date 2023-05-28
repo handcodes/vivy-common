@@ -14,10 +14,10 @@ export class AjaxResult<T = any> {
   /** 消息 */
   message?: string
 
-  constructor(code: number, msg?: string, data?: any) {
+  constructor(code: number, data?: any, message?: string) {
     this.code = code
     this.data = data
-    this.message = msg
+    this.message = message
   }
 
   /**
@@ -29,7 +29,7 @@ export class AjaxResult<T = any> {
   static success<T>(data?: T, msg?: string): AjaxResult<T> {
     const code = HttpStatus.OK
     const message = msg || '操作成功'
-    return new AjaxResult<T>(code, message, data)
+    return new AjaxResult<T>(code, data, message)
   }
 
   /**
@@ -41,6 +41,6 @@ export class AjaxResult<T = any> {
   static error<T>(codeOrMsg: number | string, msg?: string): AjaxResult<T> {
     const code = isNumber(codeOrMsg) ? codeOrMsg : HttpStatus.INTERNAL_SERVER_ERROR
     const message = isString(codeOrMsg) ? codeOrMsg : msg || '操作失败'
-    return new AjaxResult<T>(code, message)
+    return new AjaxResult<T>(code, null, message)
   }
 }
