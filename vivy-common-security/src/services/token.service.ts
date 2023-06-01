@@ -38,13 +38,6 @@ export class TokenService {
   }
 
   /**
-   * 获取令牌缓存 key
-   */
-  getTokenKey(key: string): string {
-    return CacheConstants.LOGIN_TOKEN_KEY + key
-  }
-
-  /**
    * 解析令牌
    */
   parseToken(token: string): JwtToken | null {
@@ -60,10 +53,10 @@ export class TokenService {
    * 创建令牌
    */
   async createToken(loginUser: SysLoginUser) {
-    const userKey = randomUUID()
+    const userSk = randomUUID()
     const userId = loginUser.sysUser.userId
     const userName = loginUser.sysUser.userName
-    loginUser.userKey = userKey
+    loginUser.userSk = userSk
     loginUser.userId = userId
     loginUser.userName = userName
     loginUser.ipaddr = IpUtils.requestIp(this.securityContextService.getRequest())
@@ -71,7 +64,7 @@ export class TokenService {
 
     // Jwt存储信息
     const payload: JwtToken = {
-      [SecurityConstants.USER_KEY]: userKey,
+      [SecurityConstants.USER_SK]: userSk,
       [SecurityConstants.USER_ID]: userId,
       [SecurityConstants.USER_NAME]: userName,
     }
@@ -83,27 +76,6 @@ export class TokenService {
     }
 
     return result
-  }
-
-  /**
-   * 获取用户会话key
-   */
-  getUserKey(payload: JwtToken): string {
-    return payload[SecurityConstants.USER_KEY]
-  }
-
-  /**
-   * 获取用户ID
-   */
-  getUserId(payload: JwtToken): number {
-    return payload[SecurityConstants.USER_ID]
-  }
-
-  /**
-   * 获取用户名称
-   */
-  getUserName(payload: JwtToken): string {
-    return payload[SecurityConstants.USER_NAME]
   }
 
   /**
@@ -119,7 +91,7 @@ export class TokenService {
   async getLoginUser(token: string): Promise<SysLoginUser | null> {
     if (!token) return null
     try {
-      const key = this.getTokenKey(this.getUserKey(this.parseToken(token)))
+      const key = this.getLoginSk(token)
       const user = await this.redis.get(key)
       return JSON.parse(user)
     } catch (error) {
@@ -133,7 +105,7 @@ export class TokenService {
   async delLoginUser(token: string) {
     if (!token) return
     try {
-      const key = this.getTokenKey(this.getUserKey(this.parseToken(token)))
+      const key = this.getLoginSk(token)
       await this.redis.del(key)
     } catch (error) {}
   }
@@ -144,7 +116,7 @@ export class TokenService {
   async hasLoginUser(token: string): Promise<boolean> {
     if (!token) return false
     try {
-      const key = this.getTokenKey(this.getUserKey(this.parseToken(token)))
+      const key = this.getLoginSk(token)
       return !!(await this.redis.get(key))
     } catch (error) {
       return false
@@ -169,8 +141,22 @@ export class TokenService {
     loginUser.loginTime = Date.now()
     loginUser.expireTime = loginUser.loginTime + CacheConstants.EXPIRATION * this.MILLIS_MINUTE
 
-    const key = this.getTokenKey(loginUser.userKey)
+    const key = this.appendSkPrefix(loginUser.userSk)
     const user = JSON.stringify(loginUser)
     await this.redis.set(key, user, 'EX', CacheConstants.EXPIRATION * 60)
+  }
+
+  /**
+   * 获取令牌缓存 key
+   */
+  private getLoginSk(token: string): string {
+    return this.appendSkPrefix(this.parseToken(token)[SecurityConstants.USER_SK])
+  }
+
+  /**
+   * 添加令牌缓存 key 前缀
+   */
+  private appendSkPrefix(key: string): string {
+    return CacheConstants.LOGIN_TOKEN_KEY + key
   }
 }

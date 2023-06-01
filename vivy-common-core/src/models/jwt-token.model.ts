@@ -5,7 +5,7 @@ export class JwtToken {
   /**
    * 用户会话
    */
-  user_key: string
+  user_sk: string
 
   /**
    * 用户ID

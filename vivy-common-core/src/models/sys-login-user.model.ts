@@ -7,7 +7,7 @@ export class SysLoginUser {
   /**
    * 用户会话Key
    */
-  userKey: string
+  userSk: string
 
   /**
    * 用户Id

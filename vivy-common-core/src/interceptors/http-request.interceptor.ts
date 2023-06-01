@@ -15,7 +15,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     const request = this.requestContextService.getRequest()
 
     config.headers['X-Forwarded-For'] = request.get('X-Forwarded-For')
-    config.headers[SecurityConstants.USER_KEY] = request.get(SecurityConstants.USER_KEY)
+    config.headers[SecurityConstants.USER_SK] = request.get(SecurityConstants.USER_SK)
     config.headers[SecurityConstants.USER_ID] = request.get(SecurityConstants.USER_ID)
     config.headers[SecurityConstants.USER_NAME] = request.get(SecurityConstants.USER_NAME)
     config.headers[SecurityConstants.AUTHENTICATION] = request.get(SecurityConstants.AUTHENTICATION)

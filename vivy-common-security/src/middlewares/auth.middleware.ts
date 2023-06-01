@@ -13,8 +13,8 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(request: Request, response: Response, next: NextFunction) {
     // 登录信息附加到请求
-    const userKey = request.get(SecurityConstants.USER_KEY)
-    if (userKey) request[SecurityConstants.USER_KEY] = userKey
+    const userSk = request.get(SecurityConstants.USER_SK)
+    if (userSk) request[SecurityConstants.USER_SK] = userSk
 
     const userId = request.get(SecurityConstants.USER_ID)
     if (userId) request[SecurityConstants.USER_ID] = Number(userId)

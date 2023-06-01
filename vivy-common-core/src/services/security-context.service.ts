@@ -26,8 +26,8 @@ export class SecurityContextService {
   /**
    * 获取用户会话key
    */
-  getUserKey(req?: Request): string {
-    return this.getRequest(req)[SecurityConstants.USER_KEY]
+  getUserSk(req?: Request): string {
+    return this.getRequest(req)[SecurityConstants.USER_SK]
   }
 
   /**

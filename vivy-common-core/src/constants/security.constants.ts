@@ -5,7 +5,7 @@ export class SecurityConstants {
   /**
    * 用户会话字段
    */
-  static readonly USER_KEY = 'user_key'
+  static readonly USER_SK = 'user_sk'
 
   /**
    * 用户ID字段
