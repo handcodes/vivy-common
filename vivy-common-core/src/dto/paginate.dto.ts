@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer'
 import { IsInt, Min } from 'class-validator'
+import { ApiPropertyOptional } from '@nestjs/swagger'
 
 /**
  * 分页基础参数
@@ -11,6 +12,7 @@ export class PaginateDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
+  @ApiPropertyOptional()
   readonly page: number = 1
 
   /**
@@ -19,5 +21,6 @@ export class PaginateDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
+  @ApiPropertyOptional()
   readonly limit: number = 10
 }

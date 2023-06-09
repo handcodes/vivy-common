@@ -3,7 +3,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core'
 import { LOGGER_OPTIONS } from './logger.constants'
 import { LoggerOptions, LoggerAsyncOptions } from './logger.interface'
 import { LogInterceptor } from './interceptors/log.interceptor'
-import { RemoteLogService } from './services/remote-log.service'
+import { RpcLogService } from './services/rpc-log.service'
 import { NestLogger, LoggerService } from './nest.logger'
 import { TypeORMLogger } from './typeorm.logger'
 
@@ -39,7 +39,7 @@ export class LoggerModule {
       module: LoggerModule,
       providers: [
         OptionsProvider,
-        RemoteLogService,
+        RpcLogService,
         LoggerServiceProvider,
         {
           provide: APP_INTERCEPTOR,

@@ -64,6 +64,7 @@ export class AuthService {
 
   /**
    * 获取当前用户缓存信息，根据指定Token
+   * @param token
    */
   async getLoginUserByToken(token: string) {
     return this.tokenService.getLoginUser(token)
@@ -71,6 +72,7 @@ export class AuthService {
 
   /**
    * 验证当前用户有效期, 如果相差不足120分钟，自动刷新缓存
+   * @param loginUser
    */
   async verifyLoginUserExpire(loginUser: SysLoginUser) {
     return this.tokenService.verifyTokenExpire(loginUser)
@@ -89,10 +91,9 @@ export class AuthService {
 
   /**
    * 判断是否包含角色
-   *
    * @param roles 角色列表
    * @param role 角色
-   * @return 用户是否具备某角色权限
+   * @returns 用户是否具备某角色权限
    */
   containRole(roles: string[], role: string): boolean {
     return roles.includes(this.SUPER_ROLE) || roles.includes(role)
@@ -100,9 +101,8 @@ export class AuthService {
 
   /**
    * 判断用户是否拥有某个角色
-   *
    * @param role 角色标识
-   * @return 用户是否具备某角色
+   * @returns 用户是否具备某角色
    */
   hasRole(role: string): boolean {
     return this.containRole(this.getRoleList(), role)
@@ -110,7 +110,6 @@ export class AuthService {
 
   /**
    * 判断用户是否拥有某个角色。如果验证未通过，则抛出异常: NotRoleException
-   *
    * @param role 角色标识
    */
   checkRole(role: string) {
@@ -121,7 +120,6 @@ export class AuthService {
 
   /**
    * 根据装饰器(@RequireRoles)鉴权, 如果验证未通过，则抛出异常: NotRoleException
-   *
    * @param requireRoles 装饰器对象
    */
   checkRoleLogical(requireRoles: RequireMetadata) {
@@ -134,7 +132,6 @@ export class AuthService {
 
   /**
    * 验证用户是否含有指定角色，必须全部拥有
-   *
    * @param roles 角色标识数组
    */
   checkRoleLogicalAnd(roles: string[]) {
@@ -147,7 +144,6 @@ export class AuthService {
 
   /**
    * 验证用户是否含有指定角色，只需包含其中一个
-   *
    * @param roles 角色标识数组
    */
   checkRoleLogicalOr(roles: string[]) {
@@ -174,10 +170,9 @@ export class AuthService {
 
   /**
    * 判断是否包含权限
-   *
    * @param permissions 权限列表
    * @param permission 权限字符串
-   * @return 用户是否具备某权限
+   * @returns 用户是否具备某权限
    */
   containPermission(permissions: string[], permission: string): boolean {
     return permissions.includes(this.SUPER_PERMISSION) || permissions.includes(permission)
@@ -185,9 +180,8 @@ export class AuthService {
 
   /**
    * 验证用户是否具备某权限
-   *
    * @param permission 权限字符串
-   * @return 用户是否具备某权限
+   * @returns 用户是否具备某权限
    */
   hasPermission(permission: string): boolean {
     return this.containPermission(this.getPermissionList(), permission)
@@ -195,9 +189,8 @@ export class AuthService {
 
   /**
    * 验证用户是否具备某权限, 如果验证未通过，则抛出异常: NotPermissionException
-   *
    * @param permission 权限字符串
-   * @return 用户是否具备某权限
+   * @returns 用户是否具备某权限
    */
   checkPermission(permission: string) {
     if (!this.hasPermission(permission)) {
@@ -207,7 +200,6 @@ export class AuthService {
 
   /**
    * 根据装饰器(@RequirePermissions)鉴权, 如果验证未通过，则抛出异常: NotPermissionException
-   *
    * @param requirePermissions 装饰器对象
    */
   checkPermissioniLogical(requirePermissions: RequireMetadata) {
@@ -220,7 +212,6 @@ export class AuthService {
 
   /**
    * 验证用户是否含有指定权限，必须全部拥有
-   *
    * @param permissions 权限列表
    */
   checkPermissioniLogicalAnd(permissions: string[]) {
@@ -233,7 +224,6 @@ export class AuthService {
 
   /**
    * 验证用户是否含有指定权限，只需包含其中一个
-   *
    * @param permissions 权限码数组
    */
   checkPermissioniLogicalOr(permissions: string[]) {

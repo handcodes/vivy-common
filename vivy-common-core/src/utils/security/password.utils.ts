@@ -9,7 +9,7 @@ export class PasswordUtils {
   /**
    * 生成密码
    * @param password 密码
-   * @return 加密字符串
+   * @returns 加密字符串
    */
   static async create(password: string): Promise<string> {
     return bcrypt.hash(password, this.saltRounds)
@@ -19,7 +19,7 @@ export class PasswordUtils {
    * 判断密码是否相同
    * @param rawPassword 真实密码
    * @param hashPassword 加密后字符
-   * @return 结果
+   * @returns 结果
    */
   static async compare(rawPassword: string, hashPassword: string): Promise<boolean> {
     return bcrypt.compare(rawPassword, hashPassword)

@@ -8,11 +8,11 @@ import { SecurityConstants } from '@vivy-cloud/common-core/lib/constants'
 import { OperLogDto } from './dto/oper-log.dto'
 
 /**
- * 远程日志服务
+ * 远程日志服务调用
  */
 @Injectable()
 @Loadbalanced(ServiceNameEnums.SYSTEM_SERVICE)
-export class RemoteLogService {
+export class RpcLogService {
   /**
    * 添加操作日志
    * @author vivy

@@ -1,4 +1,5 @@
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { DateTimeTransformer } from './transformer/datetime.transformer'
 
 /**
  * 基础时间实体
@@ -8,13 +9,15 @@ export abstract class BaseTimeEntity {
     name: 'created_time',
     type: 'datetime',
     comment: '创建时间',
+    transformer: DateTimeTransformer,
   })
-  createdTime: Date
+  createdTime: string
 
   @UpdateDateColumn({
     name: 'updated_time',
     type: 'datetime',
     comment: '更新时间',
+    transformer: DateTimeTransformer,
   })
-  updatedTime: Date
+  updatedTime: string
 }

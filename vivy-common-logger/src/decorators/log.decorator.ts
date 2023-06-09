@@ -6,7 +6,7 @@ import { LOGGER_LOG_METADATA } from '../logger.constants'
  * 自定义操作日志记录
  * @param title 模块标题
  * @param operType 操作类型
- * @returns
+ * @returns MethodDecorator
  */
 export const Log = (title: string, operType: OperType = OperType.OTHER) => {
   return SetMetadata(LOGGER_LOG_METADATA, {

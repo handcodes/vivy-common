@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { DateTimeTransformer } from './transformer/datetime.transformer'
 
 /**
  * 基础业务实体
@@ -9,6 +10,7 @@ export abstract class BaseBusinessEntity {
     type: 'char',
     length: 1,
     default: '0',
+    select: false,
     comment: '删除标志（0存在 1删除）',
   })
   delFlag: string
@@ -26,8 +28,9 @@ export abstract class BaseBusinessEntity {
     name: 'created_time',
     type: 'datetime',
     comment: '创建时间',
+    transformer: DateTimeTransformer,
   })
-  createTime: Date
+  createTime: string
 
   @Column({
     name: 'update_by',
@@ -42,8 +45,9 @@ export abstract class BaseBusinessEntity {
     name: 'updated_time',
     type: 'datetime',
     comment: '更新时间',
+    transformer: DateTimeTransformer,
   })
-  updateTime: Date
+  updateTime: string
 
   @Column({
     name: 'remark',
