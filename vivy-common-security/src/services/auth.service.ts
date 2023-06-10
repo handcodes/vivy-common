@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import {
   SysLoginUser,
+  UserConstants,
   NotLoginException,
   NotPermissionException,
   NotRoleException,
@@ -16,12 +17,6 @@ import { RequireMetadata } from '../interfaces/require-metadata.interface'
 @Injectable()
 export class AuthService {
   constructor(private tokenService: TokenService, private securityContextService: SecurityContextService) {}
-
-  /** 管理员角色权限标识 */
-  private SUPER_ROLE = 'admin'
-
-  /** 管理员权限码权限标识 */
-  private SUPER_PERMISSION = '*:*:*'
 
   /**
    * 会话注销
@@ -96,7 +91,7 @@ export class AuthService {
    * @returns 用户是否具备某角色权限
    */
   containRole(roles: string[], role: string): boolean {
-    return roles.includes(this.SUPER_ROLE) || roles.includes(role)
+    return roles.includes(UserConstants.SUPER_ROLE_CODE) || roles.includes(role)
   }
 
   /**
@@ -175,7 +170,7 @@ export class AuthService {
    * @returns 用户是否具备某权限
    */
   containPermission(permissions: string[], permission: string): boolean {
-    return permissions.includes(this.SUPER_PERMISSION) || permissions.includes(permission)
+    return permissions.includes(UserConstants.SUPER_ROLE_PERMISSION) || permissions.includes(permission)
   }
 
   /**
