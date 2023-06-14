@@ -1,3 +1,4 @@
+import { isArray } from 'lodash'
 import { SetMetadata } from '@nestjs/common'
 import { Logical } from '../enums/logical.enums'
 import { REQUIRE_PERMISSIONS_METADATA } from '../security.constants'
@@ -7,9 +8,9 @@ import { REQUIRE_PERMISSIONS_METADATA } from '../security.constants'
  * @param value 需要校验的权限码
  * @param logical 验证逻辑：AND | OR，默认AND
  */
-export const RequirePermissions = (value: string[], logical: Logical = Logical.AND) => {
+export const RequirePermissions = (value: string | string[], logical: Logical = Logical.AND) => {
   return SetMetadata(REQUIRE_PERMISSIONS_METADATA, {
-    value,
+    value: isArray(value) ? value : [value],
     logical,
   })
 }

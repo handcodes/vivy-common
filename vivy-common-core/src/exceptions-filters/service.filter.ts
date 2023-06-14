@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { LoggerService } from '@vivy-cloud/common-logger'
 import { ServiceException } from '../exceptions/service.exception'
 import { AjaxResult } from '../models/ajax-result.model'
@@ -13,10 +13,9 @@ export class ServiceExceptionFilter implements ExceptionFilter {
 
   catch(exception: ServiceException, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
-    const request = ctx.getRequest<Request>()
     const response = ctx.getResponse<Response>()
 
-    this.logger.error(exception.getMessage(), request.url, ServiceExceptionFilter.name)
+    this.logger.error(exception.getMessage(), exception.stack, ServiceExceptionFilter.name)
     response.status(HttpStatus.OK).json(AjaxResult.error(exception.getCode(), exception.getMessage()))
   }
 }

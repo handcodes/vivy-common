@@ -1,3 +1,4 @@
+import { isArray } from 'lodash'
 import { SetMetadata } from '@nestjs/common'
 import { Logical } from '../enums/logical.enums'
 import { REQUIRE_ROLES_METADATA } from '../security.constants'
@@ -7,9 +8,9 @@ import { REQUIRE_ROLES_METADATA } from '../security.constants'
  * @param value 需要校验的角色标识
  * @param logical 验证逻辑：AND | OR，默认AND
  */
-export const RequireRoles = (value: string[], logical: Logical = Logical.AND) => {
+export const RequireRoles = (value: string | string[], logical: Logical = Logical.AND) => {
   return SetMetadata(REQUIRE_ROLES_METADATA, {
-    value,
+    value: isArray(value) ? value : [value],
     logical,
   })
 }

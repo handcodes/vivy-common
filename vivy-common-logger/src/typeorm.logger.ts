@@ -24,7 +24,7 @@ export class TypeORMLogger implements Logger {
     this.logger = WinstonModule.createLogger({
       transports: [
         TransportBuilder.buildConsoleTransportInstance({
-          level: 'warn',
+          level: 'info',
         }),
         TransportBuilder.buildDailyRotateFileTransportInstance({
           level: 'warn',

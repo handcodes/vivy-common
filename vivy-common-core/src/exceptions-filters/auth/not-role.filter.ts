@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { LoggerService } from '@vivy-cloud/common-logger'
 import { NotRoleException } from '../../exceptions/auth/not-role.exception'
 import { AjaxResult } from '../../models/ajax-result.model'
@@ -13,10 +13,9 @@ export class NotRoleExceptionFilter implements ExceptionFilter {
 
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
-    const request = ctx.getRequest<Request>()
     const response = ctx.getResponse<Response>()
 
-    this.logger.error(`角色权限校验失败${exception.message}`, request.url, NotRoleExceptionFilter.name)
-    response.status(HttpStatus.FORBIDDEN).json(AjaxResult.error(HttpStatus.FORBIDDEN, '没有访问权限，请联系管理员授权'))
+    this.logger.error(`角色权限校验失败${exception.message}`, exception.stack, NotRoleExceptionFilter.name)
+    response.status(HttpStatus.OK).json(AjaxResult.error(HttpStatus.FORBIDDEN, '没有访问权限，请联系管理员授权'))
   }
 }

@@ -1,5 +1,4 @@
 import { FactoryProvider } from '@nestjs/common'
-import { OperType } from './enums/oper-type.enum'
 
 export interface LoggerOptions {
   /**
@@ -18,15 +17,4 @@ export interface LoggerAsyncOptions {
   name?: string
   useFactory: (...args: any[]) => Promise<LoggerOptions> | LoggerOptions
   inject?: FactoryProvider['inject']
-}
-
-export interface LoggerLogMetaData {
-  /**
-   * 日志标题
-   */
-  title: string
-  /**
-   * 操作类型
-   */
-  operType: OperType
 }

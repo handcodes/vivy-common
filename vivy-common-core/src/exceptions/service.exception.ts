@@ -16,7 +16,7 @@ export class ServiceException extends HttpException {
   message: string
 
   constructor(codeOrMsg: number | string, msg?: string) {
-    super(null, HttpStatus.OK)
+    super((msg || codeOrMsg) as string, HttpStatus.OK)
 
     const code = isNumber(codeOrMsg) ? codeOrMsg : HttpStatus.INTERNAL_SERVER_ERROR
     const message = isString(codeOrMsg) ? codeOrMsg : msg

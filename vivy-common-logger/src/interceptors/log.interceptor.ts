@@ -1,12 +1,12 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, HttpStatus, StreamableFile } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { Observable, tap, catchError, throwError } from 'rxjs'
-import { isObject } from 'lodash'
 import { Request } from 'express'
 import { IpUtils } from '@vivy-cloud/common-core/lib/utils'
+import { AjaxResult } from '@vivy-cloud/common-core/lib/models'
 import { SecurityConstants } from '@vivy-cloud/common-core/lib/constants'
 import { LOGGER_LOG_METADATA } from '../logger.constants'
-import { LoggerLogMetaData } from '../logger.interface'
+import { LogOptions } from '../decorators/log.decorator'
 import { OperStatus } from '../enums/oper-status.enum'
 import { RpcLogService } from '../services/rpc-log.service'
 import { OperLogDto } from '../services/dto/oper-log.dto'
@@ -19,16 +19,35 @@ export class LogInterceptor implements NestInterceptor {
   constructor(private reflector: Reflector, private rpcLogService: RpcLogService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const meta = this.reflector.get<LoggerLogMetaData>(LOGGER_LOG_METADATA, context.getHandler())
-    if (!meta) return next.handle()
+    return next.handle().pipe(
+      tap((res) => {
+        this.saveOperLog(context, res)
+      }),
+      catchError((err: Error) => {
+        this.saveOperLog(context, AjaxResult.error(err.message))
+        return throwError(() => err)
+      })
+    )
+  }
+
+  /**
+   * 保存操作日志
+   * @param context ExecutionContext
+   * @param result AjaxResult | StreamableFile
+   * @returns
+   */
+  private saveOperLog(context: ExecutionContext, result: AjaxResult | StreamableFile) {
+    const meta = this.reflector.get<LogOptions>(LOGGER_LOG_METADATA, context.getHandler())
+    if (!meta) return
 
     const ctx = context.switchToHttp()
     const request = ctx.getRequest<Request>()
     const operLog = new OperLogDto()
+    const isStreamableFile = result instanceof StreamableFile
 
     operLog.title = meta.title
     operLog.operType = meta.operType
-    operLog.operMethod = `${context.getClass().name}.${context.getHandler().name}`
+    operLog.operMethod = `${context.getClass().name}.${context.getHandler().name}()`
 
     const region = IpUtils.ip2Region(IpUtils.requestIp(request))
     operLog.operIp = IpUtils.requestIp(request)
@@ -37,24 +56,23 @@ export class LogInterceptor implements NestInterceptor {
 
     operLog.requestUrl = request.url
     operLog.requestMethod = request.method
-    operLog.requestParam = JSON.stringify(request.body)
+    if (meta.isSaveRequestData) {
+      operLog.requestParam = JSON.stringify(request.body)
+    }
+    if (meta.isSaveResponseData && !isStreamableFile) {
+      operLog.requestResult = JSON.stringify(result)
+    }
 
-    return next.handle().pipe(
-      tap((res) => {
-        operLog.operStatus = OperStatus.SUCCESS
-        operLog.requestResult = isObject(res) ? JSON.stringify(res) : res
-        this.rpcLogService.saveOperLog(operLog).catch(() => {
-          // Do not handle errors
-        })
-      }),
-      catchError((err: Error) => {
-        operLog.operStatus = OperStatus.FAIL
-        operLog.requestErrmsg = isObject(err.message) ? JSON.stringify(err.message) : err.message
-        this.rpcLogService.saveOperLog(operLog).catch(() => {
-          // Do not handle errors
-        })
-        return throwError(() => err)
-      })
-    )
+    if (isStreamableFile || result.code === HttpStatus.OK) {
+      operLog.operStatus = OperStatus.SUCCESS
+      operLog.requestErrmsg = undefined
+    } else {
+      operLog.operStatus = OperStatus.FAIL
+      operLog.requestErrmsg = result.message
+    }
+
+    this.rpcLogService.saveOperLog(operLog).catch(() => {
+      // Do not handle errors
+    })
   }
 }

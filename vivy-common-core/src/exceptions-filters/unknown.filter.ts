@@ -1,5 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common'
 import { Response } from 'express'
+import { isArray, isString } from 'lodash'
 import { LoggerService } from '@vivy-cloud/common-logger'
 import { AjaxResult } from '../models/ajax-result.model'
 
@@ -13,10 +14,51 @@ export class UnknownExceptionFilter implements ExceptionFilter {
   catch(exception: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
-    const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR
-    const message = exception instanceof HttpException ? exception.message : '服务异常，请稍后再试'
 
-    this.logger.error(exception.message, exception.stack, UnknownExceptionFilter.name)
-    response.status(status).json(AjaxResult.error(status, message))
+    const code = this.initCode(exception)
+    const { cause, message } = this.initMessage(exception)
+
+    this.logger.error(cause, exception.stack, UnknownExceptionFilter.name)
+    response.status(HttpStatus.OK).json(AjaxResult.error(code, message))
+  }
+
+  private initCode(exception: Error) {
+    if (exception instanceof HttpException) {
+      return exception.getStatus()
+    } else {
+      return HttpStatus.INTERNAL_SERVER_ERROR
+    }
+  }
+
+  private initMessage(exception: Error) {
+    if (exception instanceof HttpException) {
+      const response = exception.getResponse() as any
+      if (isString(response)) {
+        return {
+          cause: response,
+          message: response,
+        }
+      } else if (isString(response?.message)) {
+        return {
+          cause: response.message,
+          message: response.message,
+        }
+      } else if (isArray(response?.message)) {
+        return {
+          cause: JSON.stringify(response.message),
+          message: response.message[0],
+        }
+      } else {
+        return {
+          cause: response ? JSON.stringify(response) : exception.message,
+          message: exception.message,
+        }
+      }
+    } else {
+      return {
+        cause: exception.message,
+        message: '服务异常，请稍后再试',
+      }
+    }
   }
 }

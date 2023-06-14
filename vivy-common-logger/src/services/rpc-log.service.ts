@@ -15,8 +15,7 @@ import { OperLogDto } from './dto/oper-log.dto'
 export class RpcLogService {
   /**
    * 添加操作日志
-   * @author vivy
-   * @date 2023-04-26 17:14:14
+   * @param operLog 操作日志信息
    */
   @Post('remote/log/saveOperLog')
   @SetHeader(SecurityConstants.FROM_SOURCE, SecurityConstants.SOURCE_INNER)
